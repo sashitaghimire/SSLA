@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import logo from "../assets/ssla_logo_transparent.png";
 import { useNavigate } from "react-router-dom";
+import { X } from "lucide-react";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
+  const [isOpenForm, setIsOpenForm] = useState(false);
   const navigate = useNavigate();
 
   // Define navigation items
@@ -101,7 +103,12 @@ const Navbar = () => {
             {navItems.map((item) => (
               <NavButton key={item?.label} item={item} />
             ))}
-            <button className="bg-[#E84B23] text-white px-6 py-2 rounded-lg">Explore</button>
+            <button
+              className="bg-[#E84B23] text-white px-6 py-2 rounded-lg"
+              onClick={() => setIsOpenForm(true)}
+            >
+              Register
+            </button>
           </div>
 
           {/* Mobile menu button */}
@@ -155,6 +162,42 @@ const Navbar = () => {
           </div>
         )}
       </div>
+
+      {isOpenForm && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+          <div className="bg-white rounded-xl shadow-xl p-6 w-full h-[90vh] max-w-5xl relative">
+            <div className="flex row justify-between align-center">
+              <h2 className="text-xl font-semibold mb-4">Sample Form</h2>
+              <button className="mb-5" onClick={() => setIsOpenForm(false)}>
+                <X />
+              </button>
+            </div>
+            <iframe
+              style={{ height: "85%", width: "100%" }}
+              src="https://docs.google.com/forms/d/e/1FAIpQLSfAr-SMbxpozJP7MMukcTTdxUFXnm2_nG7mATloneC4gzoABA/viewform"
+            />
+            <button
+              className="text- mt-5 hover:text-blue-800"
+              onClick={() =>
+                window.open(
+                  "https://docs.google.com/spreadsheets/d/1KInaDmRnnYWe0YT9pnu_gJ_93H2cX8xKurcjFXLVEQg/edit?resourcekey=&gid=1658396389#gid=1658396389",
+                  "_blank"
+                )
+              }
+            >
+              Click here to view responses
+            </button>
+            {/* <div className="flex justify-end mt-2">
+              <button
+                onClick={() => setIsOpenForm(false)}
+                className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
+              >
+                Close
+              </button>
+            </div> */}
+          </div>
+        </div>
+      )}
     </nav>
   );
 };
